@@ -1,10 +1,10 @@
 import React from "react";
-import Signup from "./components/Signup";
+import Route from "routes/MainRoute";
 
 function App() {
   return (
     <div className="App">
-      <Signup />
+      <Route />
     </div>
   );
 }
