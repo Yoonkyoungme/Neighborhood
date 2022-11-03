@@ -1,18 +1,24 @@
 .container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.dessert, .fastfood, .lunchBox, .asian,
-.bunsik, .korean, .chinese, .japanese, .western {
-        border: 1px solid #EBF0FF;
-        border-radius: 5px;
-        width: 100px;
-        height: 30px;
-        background-color: transparent;
-        color: #949494;
-        font-weight: bold;
-        margin: 5px 5px 5px 0;
+.dessert,
+.fastfood,
+.lunchBox,
+.asian,
+.bunsik,
+.korean,
+.chinese,
+.japanese,
+.western {
+  border: 1px solid #ebf0ff;
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  background-color: transparent;
+  color: #949494;
+  font-weight: bold;
+  margin: 5px 5px 5px 0;
 }

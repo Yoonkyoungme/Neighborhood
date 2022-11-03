@@ -15,24 +15,12 @@ import {
   Button,
 } from "react-bootstrap";
 
-const StyledInput = styled.input`
-  font-size: 1rem;
-  border: none;
-  border-bottom: 1px solid #87ceeb;
-  outline: none;
-  width: 50%;
-  padding-bottom: 0.5rem;
-  margin-bottom: 1rem;
-`;
-
 function Login() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
 
-  // input data의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputId = (e) => {
     setInputId(e.target.value);
-    // console.log(e.target.value)
   };
 
   const handleInputPw = (e) => {
@@ -62,40 +50,42 @@ function Login() {
   };
 
   return (
-    <Card border="dark" style={{ width: "18rem" }}>
+    <LoginWrap border="primary" style={{ width: "18rem" }}>
       <Card.Body>
         <Card.Title>로그인</Card.Title>
         <Form>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Group className="mb-3">
             <CustomLable>이메일</CustomLable>
-            <Form.Control type="email" placeholder="Enter email" />
+            <CustomInput
+              type="email"
+              placeholder="이메일을 입력해주세요."
+              onChange={handleInputId}
+            />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group className="mb-3">
             <CustomLable>비밀번호</CustomLable>
-            <Form.Control type="password" placeholder="Password" />
+            <CustomInput
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              onChange={handleInputPw}
+            />
           </Form.Group>
-          <CustomButton variant="primary" type="submit">
+          <CustomButton type="submit" onClick={onClickLogin}>
             로그인
           </CustomButton>
         </Form>
       </Card.Body>
-    </Card>
+    </LoginWrap>
   );
 }
 export default Login;
 
-const LoginContainer = styled.div`
-  display: flex;
-  width: 100%;
-`;
-
-const LoginWrap = styled(Form)`
-  margin: 15%;
+const LoginWrap = styled(Card)`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin-bottom: -80px;
+  align-items: center;
+  margin: 8% auto;
 `;
 
 const CustomLable = styled(Form.Label)`
@@ -104,12 +94,18 @@ const CustomLable = styled(Form.Label)`
   margin-top: 15%;
 `;
 
+const CustomInput = styled(Form.Control)`
+  font-size: 14px;
+  width: 240px;
+`;
+
 const CustomButton = styled(Button)`
   background-color: #a9d5fd;
   border: 1px solid #a9d5fd;
+  font-size: 14px;
   width: 100%;
   height: 20%;
-  margin-top: 20px;
+  margin: 20px 0;
   :hover {
     background-color: #77aada;
   }

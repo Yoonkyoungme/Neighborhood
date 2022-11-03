@@ -49,19 +49,3 @@ const Header = (props) => {
 export default Header;
 
 // styled-components
-const BoardInfoContainer = styled.div`
-  display: flex;
-  font-size: 14px;
-  margin: 30px;
-  color: #949494;
-
-  .container-left {
-    margin-right: 10px;
-    cursor: pointer;
-  }
-
-  .container-right {
-    margin-right: 10px;
-    cursor: pointer;
-  }
-`;

@@ -7,7 +7,6 @@ import BoardNav from "components/BoardNav/BoardNav";
 const DeliveryBoard = (props) => {
   return (
     <div>
-      <BoardNav />
       <BoardList />
     </div>
   );

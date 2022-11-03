@@ -11,7 +11,7 @@ const StyledInput = styled.input`
 `;
 
 function Signup() {
-  // 닉네임, 아이디(이메일), 비밀번호, 비밀번호 확인, 주소, 우편번호, 은행명, 계좌번호
+  // 닉네임, 아이디(이메일), 비밀번호, 비밀번호 확인
   const [inputName, setInputName] = useState("");
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");

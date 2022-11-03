@@ -17,5 +17,5 @@ export default StartPage;
 const LogImg = styled.img`
   display: flex;
   margin: auto;
-  width: 600px;
+  width: 500px;
 `;
