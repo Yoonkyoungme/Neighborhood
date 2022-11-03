@@ -3,6 +3,18 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+// bootstrap
+import {
+  Container,
+  Card,
+  Col,
+  Row,
+  FloatingLabel,
+  Form,
+  Input,
+  Button,
+} from "react-bootstrap";
+
 const StyledInput = styled.input`
   font-size: 1rem;
   border: none;
@@ -50,42 +62,55 @@ function Login() {
   };
 
   return (
-    <div className="login">
-      <h2>로그인</h2>
-      <div>
-        <h4>아이디(이메일)</h4>
-        <StyledInput
-          type="text"
-          id="input_id"
-          name="input_id"
-          value={inputId}
-          placeholder="아이디(이메일)"
-          onChange={handleInputId}
-        />
-      </div>
-      <div>
-        <h4>비밀번호</h4>
-        <StyledInput
-          type="password"
-          id="input_pw"
-          name="input_pw"
-          value={inputPw}
-          placeholder="비밀번호"
-          onChange={handleInputPw}
-        />
-      </div>
-      <div>
-        <button className="button-log" type="submit" onClick={onClickLogin}>
-          로그인
-        </button>
-      </div>
-
-      <Link to="/signup">
-        <button className="button-sign" type="button">
-          회원가입
-        </button>
-      </Link>
-    </div>
+    <Card border="dark" style={{ width: "18rem" }}>
+      <Card.Body>
+        <Card.Title>로그인</Card.Title>
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <CustomLable>이메일</CustomLable>
+            <Form.Control type="email" placeholder="Enter email" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <CustomLable>비밀번호</CustomLable>
+            <Form.Control type="password" placeholder="Password" />
+          </Form.Group>
+          <CustomButton variant="primary" type="submit">
+            로그인
+          </CustomButton>
+        </Form>
+      </Card.Body>
+    </Card>
   );
 }
 export default Login;
+
+const LoginContainer = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const LoginWrap = styled(Form)`
+  margin: 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -80px;
+`;
+
+const CustomLable = styled(Form.Label)`
+  font-size: 14px;
+  display: flex;
+  margin-top: 15%;
+`;
+
+const CustomButton = styled(Button)`
+  background-color: #a9d5fd;
+  border: 1px solid #a9d5fd;
+  width: 100%;
+  height: 20%;
+  margin-top: 20px;
+  :hover {
+    background-color: #77aada;
+  }
+`;
