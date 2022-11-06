@@ -14,6 +14,7 @@ import Signup from "pages/Signup";
 // 공동배달 페이지
 import DeliveryBoard from "pages/DeliveryBoard";
 import DeliveryRegister from "pages/DeliveryRegister";
+import DeliveryDetail from "pages/DeliveryDetail";
 
 function MainRoute() {
   return (
@@ -26,6 +27,7 @@ function MainRoute() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/delivery-board" element={<DeliveryBoard />} />
           <Route path="/delivery-register" element={<DeliveryRegister />} />
+          <Route path="/delivery-detail" element={<DeliveryDetail />} />
         </Routes>
       </BrowserRouter>
     </div>
