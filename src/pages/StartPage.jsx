@@ -1,21 +1,27 @@
 import React from "react";
-import logo from "img/logo.png";
+import logo from "assets/img/logo.png";
 
 import styled from "styled-components";
 
 const StartPage = (props) => {
   return (
-    <div>
+    <ImgWrap>
       <LogImg src={logo} />
-    </div>
+    </ImgWrap>
   );
 };
 
 export default StartPage;
 
 // styled-components
-const LogImg = styled.img`
+const ImgWrap = styled.div`
   display: flex;
-  margin: auto;
-  width: 500px;
+  justify-content: center;
+  align-items: center;
+  max-width: 100vw;
+  max-height: 100vh;
+`;
+
+const LogImg = styled.img`
+  width: 600px;
 `;

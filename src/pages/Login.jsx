@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-// bootstrap
+// css
+import styled from "styled-components";
 import {
   Container,
   Card,
@@ -34,9 +34,9 @@ function Login() {
     console.log(inputId, inputPw);
 
     axios
-      .post("url", {
-        id: inputId,
-        password: inputPw,
+      .post("http://127.0.0.1:8000/rest-auth/login", {
+        Email: inputId,
+        Password: inputPw,
       })
       // 서버에서 보내준 결과값이 response
       .then(function (response) {
@@ -100,9 +100,10 @@ const CustomInput = styled(Form.Control)`
 `;
 
 const CustomButton = styled(Button)`
-  background-color: #a9d5fd;
-  border: 1px solid #a9d5fd;
+  background-color: #76c1ed;
+  border: 1px solid #76c1ed;
   font-size: 14px;
+  font-weight: bold;
   width: 100%;
   height: 20%;
   margin: 20px 0;

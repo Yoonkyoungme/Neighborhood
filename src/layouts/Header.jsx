@@ -29,9 +29,9 @@ const Header = (props) => {
   };
 
   return (
-    <Navbar bg="light" variant="light">
+    <NavbarWrap>
       <Container>
-        <Nav className="me-auto">
+        <Nav className="justify-content-center">
           <Nav.Link>
             <AiOutlineHome onClick={handleHomeClick} />
           </Nav.Link>
@@ -42,10 +42,14 @@ const Header = (props) => {
           <Nav.Link>메시지 / 알림</Nav.Link>
         </Nav>
       </Container>
-    </Navbar>
+    </NavbarWrap>
   );
 };
 
 export default Header;
 
 // styled-components
+const NavbarWrap = styled(Navbar)`
+  background-color: #c4e0fb;
+  height: 10%;
+`;
