@@ -31,13 +31,15 @@ const MenuFilter = (props) => {
     });
 
     if (filterState.passingTags[menuId] === true) {
-      let cur = document.getElementById(menuId);
-      cur.style.backgroundColor = "#EBF0FF";
+      let menu = document.getElementById(menuId);
+      menu.style.color = "black";
+      menu.style.backgroundColor = "white";
     }
 
     if (filterState.passingTags[menuId] === false) {
-      let cur = document.getElementById(menuId);
-      cur.style.backgroundColor = "transparent";
+      let menu = document.getElementById(menuId);
+      menu.style.color = "white";
+      menu.style.backgroundColor = "#4c9be6";
     }
 
     props.getId(e.target.id);

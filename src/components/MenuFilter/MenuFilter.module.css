@@ -1,7 +1,9 @@
 .container {
+  width: 85%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: -30px;
 }
 
 .dessert,
@@ -13,12 +15,12 @@
 .chinese,
 .japanese,
 .western {
-  border: 1px solid #ebf0ff;
+  border: 1px solid #a8a9ac;
   border-radius: 5px;
-  width: 100px;
+  width: 120px;
   height: 30px;
   background-color: transparent;
-  color: #949494;
-  font-weight: bold;
+  color: black;
+  font-weight: 400;
   margin: 5px 5px 5px 0;
 }

@@ -8,7 +8,7 @@ const BoardBox = (props) => {
       <div className={styles.icon}>
         <i class="fa-regular fa-circle-check"></i>
       </div>
-      <Link to={"/delivBoard"} className={styles.link}>
+      <Link to={"/delivery-detail"} className={styles.link}>
         <div className={styles.container}>
           <div className={styles.storeAndPlatform}>
             <p className={styles.title}>가게 이름 / 구매처</p>

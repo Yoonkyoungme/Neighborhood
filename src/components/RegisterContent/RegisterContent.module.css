@@ -18,17 +18,18 @@
 }
 
 .nickName {
-  border: 1px solid #ebf0ff;
+  border: 1px solid #c4e0fb;
   border-radius: 5px;
-  width: 140px;
-  height: 40px;
+  width: 10%;
+  height: 15%;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  left: 760px;
+  left: 20%;
   font-size: 13px;
   color: #949494;
+  margin-bottom: 10px;
 }
 
 .userName {
