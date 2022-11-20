@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // css
 import styled from "styled-components";
@@ -18,6 +18,7 @@ import {
 function Login() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
+  const navigate = useNavigate();
 
   const handleInputId = (e) => {
     setInputId(e.target.value);
@@ -41,11 +42,10 @@ function Login() {
       // 서버에서 보내준 결과값이 response
       .then(function (response) {
         alert("로그인 성공");
-        return true;
+        navigate("/delivery-board");
       })
       .catch(function (error) {
         alert("로그인 실패");
-        return false;
       });
   };
 
