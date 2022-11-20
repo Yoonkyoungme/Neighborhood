@@ -29,6 +29,7 @@ const RegisterContent = (props) => {
     setPeoNum("");
     setUseTime("");
     setPlace("");
+    setKakaoUrl("");
     setContent("");
   };
 
@@ -38,7 +39,6 @@ const RegisterContent = (props) => {
   };
 
   const handleButtonClick = async (e) => {
-    navigate("/delivery-register");
     const request_data = {
       title: title,
       shopName: shopName,
@@ -47,7 +47,6 @@ const RegisterContent = (props) => {
       place: place,
       category: category,
       content: content,
-      kakaoUrl: kakaoUrl,
     };
     try {
       let response = await axios({
@@ -57,8 +56,8 @@ const RegisterContent = (props) => {
         data: JSON.stringify(request_data),
       });
       if (response.status >= 200 && response.status < 300) {
-        alert("댓글 작성이 완료 되었습니다.");
-        resetInput();
+        alert("등록이 완료되었습니다.");
+        navigate("/delivery-board");
       }
     } catch (err) {
       alert(err);
