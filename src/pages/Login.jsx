@@ -35,9 +35,9 @@ function Login() {
     console.log(inputId, inputPw);
 
     axios
-      .post("http://127.0.0.1:8000/rest-auth/login", {
-        Email: inputId,
-        Password: inputPw,
+      .post("https://sungmin.pythonanywhere.com/account/rest-auth/login", {
+        email: inputId,
+        password: inputPw,
       })
       // 서버에서 보내준 결과값이 response
       .then(function (response) {

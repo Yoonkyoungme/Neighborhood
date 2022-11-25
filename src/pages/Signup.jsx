@@ -47,12 +47,15 @@ function Signup() {
       return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } else {
       axios
-        .post("http://127.0.0.1:8000/rest-auth/registration/", {
-          Username: inputName,
-          Email: inputId,
-          Password1: inputPw,
-          Password2: confirmPw,
-        })
+        .post(
+          "https://sungmin.pythonanywhere.com/account/rest-auth/registration/",
+          {
+            username: inputName,
+            email: inputId,
+            password1: inputPw,
+            password2: confirmPw,
+          }
+        )
         .then(function (response) {
           if (response.status >= 200 && response.status < 300) {
             alert("회원가입 성공");
@@ -60,8 +63,7 @@ function Signup() {
           }
         })
         .catch(function (error) {
-          alert("오류");
-          return false;
+          alert(error);
         });
     }
   };
@@ -77,6 +79,7 @@ function Signup() {
               type="email"
               placeholder="이메일을 입력해주세요."
               onChange={handleInputId}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -85,6 +88,7 @@ function Signup() {
               type="password"
               placeholder="비밀번호를 입력해주세요."
               onChange={handleInputPw}
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -93,6 +97,7 @@ function Signup() {
               type="password"
               placeholder="비밀번호를 다시 한 번 입력해주세요."
               onChange={handleConfirmPw}
+              required
             />
             <Form.Group className="mb-3">
               <CustomLable>닉네임</CustomLable>
