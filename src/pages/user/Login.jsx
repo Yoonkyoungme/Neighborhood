@@ -46,16 +46,25 @@ function Login() {
     console.log("click login");
     console.log(inputId, inputPw);
 
-    axios
-      .post("https://sungmin.pythonanywhere.com/account/rest-auth/login", {
+    axios({
+      url: "https://sungmin.pythonanywhere.com/account/rest-auth/login",
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
         email: inputId,
         password: inputPw,
-      })
+      },
+    })
       // 서버에서 보내준 결과값이 response
       .then(function (response) {
-        alert("로그인 성공");
-        localStorage.setItem("token", response.token);
-        navigate("/delivery-board");
+        if (parseInt(response.status / 200) == 1) {
+          alert("로그인 성공");
+          localStorage.setItem("login-token", response.data.token);
+          console.log(response.data.token);
+          navigate("/delivery-board");
+        }
       })
       .catch(function (error) {
         alert("로그인 실패");
@@ -87,6 +96,7 @@ function Login() {
             로그인
           </CustomButton>
         </Form>
+        <CustomSignupButton>회원가입</CustomSignupButton>
       </Card.Body>
     </LoginWrap>
   );
@@ -123,4 +133,8 @@ const CustomButton = styled(Button)`
   :hover {
     background-color: #77aada;
   }
+`;
+
+const CustomSignupButton = styled.div`
+  font-size: 12px;
 `;

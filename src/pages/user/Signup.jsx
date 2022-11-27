@@ -57,9 +57,14 @@ function Signup() {
           }
         )
         .then(function (response) {
-          if (response.status >= 200 && response.status < 300) {
+          if (parseInt(response.status / 200) == 1) {
             alert("회원가입 성공");
             navigate("/delivery-board");
+          }
+        })
+        .then(function (response) {
+          if (response.ACCESS_TOKEN) {
+            localStorage.setItem("loing-token", response.ACESS_TOKEN);
           }
         })
         .catch(function (error) {
@@ -109,7 +114,7 @@ function Signup() {
             </Form.Group>
           </Form.Group>
           <CustomButton type="submit" onClick={onSubmit}>
-            로그인
+            회원가입
           </CustomButton>
         </Form>
       </Card.Body>

@@ -1,71 +1,104 @@
-import Interceptor from "services/apis/AxiosInterceptor";
+import axios from "axios";
 
-// user 정보
-import { user } from "store/index";
+const api = axios.create({
+  baseURL: "https://sungmin.pythonanywhere.com/",
+  headers: {
+    "content-type": "application/json;charset=UTF-8",
+    accept: "application/json,",
+  },
+  withCredentials: true,
+});
 
-/**
- * 로그인 함수
- * @param {*} email
- * @param {*} password
- * @returns 정상: email, password
- */
-export function login(email, password) {
-  return Interceptor({
-    url: "/account/rest-auth/login",
-    method: "post",
-    data: { email, password },
-  });
-}
+// const access_token = getCookie("access_token");
+// const refresh_token = getCookie("refresh_token");
+
+// api.interceptors.request.use(function (config) {
+//   config.headers.common["Authorization"] = access_token;
+//   config.headers.common["Refresh-Token"] = refresh_token;
+//   return config;
+// });
 
 export function signup(username, email, password1, password2) {
-  return Interceptor({
+  return api({
     url: "account/rest-auth/registration/",
     method: "post",
-    data: { username, email, password1, password2 },
+    data: {
+      username: username,
+      email: email,
+      password1: password1,
+      password2: password2,
+    },
   });
 }
 
-export function checkTokenValidiation() {
-  // zustand
-  const { thisUser, userLogin } = user((state) => state);
+// // user 정보
+// import { user } from "store/index";
 
-  let thisUserInfo = JSON.parse(JSON.stringify(thisUser));
+// /**
+//  * 로그인 함수
+//  * @param {*} email
+//  * @param {*} password
+//  * @returns 정상: email, password
+//  */
+// export function login(email, password) {
+//   return Interceptor({
+//     url: "/account/rest-auth/login",
+//     method: "post",
+//     data: { email, password },
+//   });
+// }
 
-  // 로그인된 계정이 없으면 토큰 검증하지 않고 반환
-  if (!thisUserInfo) {
-    return false;
-  }
+// export function signup(username, email, password1, password2) {
+//   return Interceptor({
+//     url: "account/rest-auth/registration/",
+//     method: "post",
+//     data: { username, email, password1, password2 },
+//   });
+// }
 
-  let token = thisUserInfo.accessToken;
-  let refreshToken = thisUserInfo.refreshToken;
+// export function checkTokenValidiation() {
+//   // zustand
+//   const { thisUser, userLogin } = user((state) => state);
 
-  let validation = true;
+//
 
-  // token의 유효성 확인
-  tokenValidiation(token)
-    .then((response) => {
-      if (parseInt(response.status / 200) == 1) {
-      }
-    })
-    .catch((error) => {
-      validation = false;
-      console.log(error);
+// let thisUserInfo = JSON.parse(JSON.stringify(thisUser));
 
-      //refresh token 넣어서 새롭게 token 발급
-      refreshTokenValidation(refreshToken).then((response) => {
-        if (parseInt(response.status / 200) == 1) {
-          thisUserInfo.accessToken = response.data.access;
-          userLogin(thisUserInfo);
-        }
-      });
-    })
-    .catch((error) => {
-      validation = false;
-      console.log(error);
-      alert("다시 로그인 해주세요.");
-    });
+//   // 로그인된 계정이 없으면 토큰 검증하지 않고 반환
+//   if (!thisUserInfo) {
+//     return false;
+//   }
 
-  return validation;
-}
+//   let token = thisUserInfo.accessToken;
+//   let refreshToken = thisUserInfo.refreshToken;
 
-export default userApis;
+//   let validation = true;
+
+//   // token의 유효성 확인
+//   tokenValidiation(token)
+//     .then((response) => {
+//       if (parseInt(response.status / 200) == 1) {
+//       }
+//     })
+//     .catch((error) => {
+//       validation = false;
+//       console.log(error);
+
+//       //refresh token 넣어서 새롭게 token 발급
+//       refreshTokenValidation(refreshToken).then((response) => {
+//         if (parseInt(response.status / 200) == 1) {
+//           thisUserInfo.accessToken = response.data.access;
+//           userLogin(thisUserInfo);
+//         }
+//       });
+//     })
+//     .catch((error) => {
+//       validation = false;
+//       console.log(error);
+//       alert("다시 로그인 해주세요.");
+//     });
+
+//   return validation;
+// }
+
+// export default userApis;

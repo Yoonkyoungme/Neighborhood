@@ -38,18 +38,26 @@ const RegisterContent = (props) => {
     console.log(id);
   };
 
-  const handleButtonClick = async (e) => {
-    axios
-      .post("https://sungmin.pythonanywhere.com/delivery/order/", {
+  const handleButtonClick = () => {
+    axios({
+      url: "https://sungmin.pythonanywhere.com/delivery/order/",
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("login-token")}`,
+      },
+      data: {
         title: title,
         people_num: peoNum,
         waiting_time: useTime,
         place: place,
         food_category: category,
         content: content,
-      })
+      },
+    })
       .then(function (response) {
-        if (response.status >= 200 && response.status < 300) {
+        if (parseInt(response.status / 200) == 1) {
           alert("등록이 완료되었습니다.");
           navigate("/delivery-board");
         }
@@ -57,29 +65,6 @@ const RegisterContent = (props) => {
       .catch(function (error) {
         alert(error);
       });
-    // const request_data = {
-    //   title: title,
-    //   people_num: peoNum,
-    //   waiting_time: useTime,
-    //   place: place,
-    //   food_category: category,
-    //   content: content,
-    // };
-    // try {
-    //   let response = await axios({
-    //     method: "post",
-    //     url: "https://sungmin.pythonanywhere.com/delivery/order/",
-    //     headers: { "Content-Type": "application/json" },
-    //     data: JSON.stringify(request_data),
-    //   });
-    //   if (response.status >= 200 && response.status < 300) {
-    //     alert("등록이 완료되었습니다.");
-    //     navigate("/delivery-board");
-    //   }
-    // } catch (err) {
-    //   alert(err);
-    //   resetInput();
-    // }
   };
 
   return (
