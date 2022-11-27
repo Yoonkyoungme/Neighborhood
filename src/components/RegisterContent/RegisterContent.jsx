@@ -39,30 +39,47 @@ const RegisterContent = (props) => {
   };
 
   const handleButtonClick = async (e) => {
-    const request_data = {
-      title: title,
-      shopName: shopName,
-      peoNum: peoNum,
-      useTime: useTime,
-      place: place,
-      category: category,
-      content: content,
-    };
-    try {
-      let response = await axios({
-        method: "post",
-        url: "url",
-        headers: { "Content-Type": "application/json" },
-        data: JSON.stringify(request_data),
+    axios
+      .post("https://sungmin.pythonanywhere.com/delivery/order/", {
+        title: title,
+        people_num: peoNum,
+        waiting_time: useTime,
+        place: place,
+        food_category: category,
+        content: content,
+      })
+      .then(function (response) {
+        if (response.status >= 200 && response.status < 300) {
+          alert("등록이 완료되었습니다.");
+          navigate("/delivery-board");
+        }
+      })
+      .catch(function (error) {
+        alert(error);
       });
-      if (response.status >= 200 && response.status < 300) {
-        alert("등록이 완료되었습니다.");
-        navigate("/delivery-board");
-      }
-    } catch (err) {
-      alert(err);
-      resetInput();
-    }
+    // const request_data = {
+    //   title: title,
+    //   people_num: peoNum,
+    //   waiting_time: useTime,
+    //   place: place,
+    //   food_category: category,
+    //   content: content,
+    // };
+    // try {
+    //   let response = await axios({
+    //     method: "post",
+    //     url: "https://sungmin.pythonanywhere.com/delivery/order/",
+    //     headers: { "Content-Type": "application/json" },
+    //     data: JSON.stringify(request_data),
+    //   });
+    //   if (response.status >= 200 && response.status < 300) {
+    //     alert("등록이 완료되었습니다.");
+    //     navigate("/delivery-board");
+    //   }
+    // } catch (err) {
+    //   alert(err);
+    //   resetInput();
+    // }
   };
 
   return (
@@ -83,14 +100,14 @@ const RegisterContent = (props) => {
                   id="input"
                   name="text-title"
                   type="text"
-                  placeholder="제목을 입력하세요."
+                  placeholder="가게를 입력하세요."
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                 />
               </Col>
             </RegisterForm.CustomFormWrap>
             <RegisterForm.FormContainer>
-              <RegisterForm.CustomFormWrap>
+              {/* <RegisterForm.CustomFormWrap>
                 <RegisterForm.CustomLabel>
                   가게 이름 / 구매처
                 </RegisterForm.CustomLabel>
@@ -103,7 +120,7 @@ const RegisterContent = (props) => {
                     onChange={(e) => setShopName(e.target.value)}
                   />
                 </Col>
-              </RegisterForm.CustomFormWrap>
+              </RegisterForm.CustomFormWrap> */}
 
               <RegisterForm.CustomFormWrap>
                 <RegisterForm.CustomLabel>모집 인원</RegisterForm.CustomLabel>
@@ -140,6 +157,7 @@ const RegisterContent = (props) => {
                     id="input"
                     name="text-place"
                     type="text"
+                    placeholder="분배 장소를 입력해주세요."
                     value={place}
                     onChange={(e) => setPlace(e.target.value)}
                   />

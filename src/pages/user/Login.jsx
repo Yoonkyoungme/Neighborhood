@@ -2,6 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+// api
+import useApis from "services/apis/userApis";
+
+// zustand
+import { user } from "store/index";
+
 // css
 import styled from "styled-components";
 import {
@@ -19,6 +25,12 @@ function Login() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
   const navigate = useNavigate();
+
+  // zustand
+  const { thisUser, userLogin } = user((state) => state);
+
+  // 세션에 id 저장 관리
+  const [savedId, setSavedId] = useState(false);
 
   const handleInputId = (e) => {
     setInputId(e.target.value);
@@ -42,6 +54,7 @@ function Login() {
       // 서버에서 보내준 결과값이 response
       .then(function (response) {
         alert("로그인 성공");
+        localStorage.setItem("token", response.token);
         navigate("/delivery-board");
       })
       .catch(function (error) {
