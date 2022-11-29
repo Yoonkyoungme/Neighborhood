@@ -63,8 +63,9 @@ function Signup() {
           }
         })
         .then(function (response) {
-          if (response.ACCESS_TOKEN) {
-            localStorage.setItem("loing-token", response.ACESS_TOKEN);
+          if (response) {
+            localStorage.setItem("login-token", response.data.token);
+            navigate("/delivery-board");
           }
         })
         .catch(function (error) {

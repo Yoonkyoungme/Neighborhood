@@ -62,6 +62,7 @@ function Login() {
         if (parseInt(response.status / 200) == 1) {
           alert("로그인 성공");
           localStorage.setItem("login-token", response.data.token);
+          console.log(response.data);
           console.log(response.data.token);
           navigate("/delivery-board");
         }
