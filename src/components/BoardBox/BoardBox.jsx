@@ -37,11 +37,11 @@ const BoardBox = (props) => {
               </div>
               <div className={styles.num}>
                 <p className={styles.title}>모집 인원</p>
-                <p className={styles.value}>`${data.people_num}명`</p>
+                <p className={styles.value}>{`${data.people_num}명`}</p>
               </div>
               <div className={styles.time}>
                 <p className={styles.title}>소요 시간</p>
-                <p className={styles.value}>`${data.waiting_time}분`</p>
+                <p className={styles.value}>{`${data.waiting_time}분`}</p>
               </div>
               <div className={styles.location}>
                 <p className={styles.title}>분배 장소</p>
