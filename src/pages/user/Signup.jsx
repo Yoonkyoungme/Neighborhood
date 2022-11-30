@@ -48,9 +48,10 @@ function Signup() {
     } else {
       axios
         .post(
-          "https://sungmin.pythonanywhere.com/account/rest-auth/registration/",
+          "http://127.0.0.1:8000/accounts/dj-rest-auth/registration/",
+          // "https://sungmin.pythonanywhere.com/accounts/dj-rest-auth/registration/",
           {
-            username: inputName,
+            nickname: inputName,
             email: inputId,
             password1: inputPw,
             password2: confirmPw,

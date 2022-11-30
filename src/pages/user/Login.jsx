@@ -27,7 +27,7 @@ function Login() {
   const navigate = useNavigate();
 
   // zustand
-  const { thisUser, userLogin } = user((state) => state);
+  const { thisUser, userLogin } = user();
 
   // 세션에 id 저장 관리
   const [savedId, setSavedId] = useState(false);
@@ -47,7 +47,8 @@ function Login() {
     console.log(inputId, inputPw);
 
     axios({
-      url: "https://sungmin.pythonanywhere.com/account/rest-auth/login",
+      url: "http://127.0.0.1:8000/accounts/dj-rest-auth/login",
+      // url: "https://sungmin.pythonanywhere.com/accounts/dj-rest-auth/login",
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +63,7 @@ function Login() {
         if (parseInt(response.status / 200) == 1) {
           alert("로그인 성공");
           localStorage.setItem("login-token", response.data.token);
+          userLogin(response.data);
           console.log(response.data);
           console.log(response.data.token);
           navigate("/delivery-board");

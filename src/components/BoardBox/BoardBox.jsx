@@ -7,7 +7,8 @@ const BoardBox = (props) => {
   const [allData, setAllData] = useState([]);
   useEffect(() => {
     axios({
-      url: "https://sungmin.pythonanywhere.com/delivery/order/",
+      url: "http://127.0.0.1:8000/delivery/order/",
+      // url: "https://sungmin.pythonanywhere.com/delivery/order/",
       method: "get",
     })
       .then(function (response) {

@@ -40,7 +40,8 @@ const RegisterContent = (props) => {
 
   const handleButtonClick = () => {
     axios({
-      url: "https://sungmin.pythonanywhere.com/delivery/order/",
+      url: "http://127.0.0.1:8000/delivery/order/",
+      // url: "https://sungmin.pythonanywhere.com/delivery/order/",
       method: "post",
       headers: {
         Accept: "application/json",

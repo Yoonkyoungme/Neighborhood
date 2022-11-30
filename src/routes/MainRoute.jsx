@@ -1,5 +1,10 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "app.css";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 // 공통 레이아웃
 import Header from "layouts/Header";
@@ -16,7 +21,21 @@ import DeliveryBoard from "pages/delivery/DeliveryBoard";
 import DeliveryRegister from "pages/delivery/DeliveryRegister";
 import DeliveryDetail from "pages/delivery/DeliveryDetail";
 
+// 로그인 정보 처리
+import { user } from "store/index";
+
 function MainRoute() {
+  // const { pathname } = useLocation();
+
+  const ProtectedRoute = ({ redirectPath = "/login", children }) => {
+    const { thisUser } = user();
+
+    if (thisUser === false) {
+      // navigate("/login", (state = { redirectPath }));
+    }
+    return children;
+  };
+
   return (
     <div>
       <BrowserRouter>
