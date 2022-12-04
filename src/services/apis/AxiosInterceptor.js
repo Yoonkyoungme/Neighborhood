@@ -3,7 +3,7 @@ import axios from "axios";
 const AxiosInterceptor = axios.create({
   baseURL: "https://sungmin.pythonanywhere.com/",
   headers: {
-    "content-type": "application/json;charset=UTF-8",
+    "Content-Type": "application/json",
     accept: "application/json,",
   },
   timeout: 15000,
@@ -12,6 +12,8 @@ const AxiosInterceptor = axios.create({
 // request interceptors
 AxiosInterceptor.interceptors.request.use(
   function (config) {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    config.headers.Authorization = "Bearer " + token;
     return config;
   },
   function (error) {

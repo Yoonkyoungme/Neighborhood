@@ -18,10 +18,10 @@ const Header = (props) => {
     navigate("/login");
   };
 
-  // 회원가입 페이지 이동 이벤트
-  const handleSignupClick = () => {
-    navigate("/signup");
-  };
+  // // 회원가입 페이지 이동 이벤트
+  // const handleSignupClick = () => {
+  //   navigate("/signup");
+  // };
 
   // 공동배달 게시판 페이지 이동 이벤트
   const handleDeliveryBoardClick = () => {
@@ -36,10 +36,10 @@ const Header = (props) => {
             <AiOutlineHome onClick={handleHomeClick} />
           </Nav.Link>
           <Nav.Link onClick={handleLoginClick}>로그인</Nav.Link>
-          <Nav.Link onClick={handleSignupClick}>회원가입</Nav.Link>
+          {/* <Nav.Link onClick={handleSignupClick}>회원가입</Nav.Link> */}
           <Nav.Link onClick={handleDeliveryBoardClick}>공동배달</Nav.Link>
+          <Nav.Link onClick={handleDeliveryBoardClick}>게시판</Nav.Link>
           <Nav.Link>내 정보 관리</Nav.Link>
-          <Nav.Link>메시지 / 알림</Nav.Link>
         </Nav>
       </Container>
     </NavbarWrap>

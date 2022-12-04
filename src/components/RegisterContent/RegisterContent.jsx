@@ -5,6 +5,9 @@ import { useNavigate, Link } from "react-router-dom";
 // components
 import MenuFilter from "components/MenuFilter/MenuFilter";
 
+// api
+import { getAllDeliveryList } from "services/apis/deliveryApi";
+
 // css
 import * as RegisterForm from "assets/styles/RegisterForm";
 import { Form, FormGroup, Col, Label, Input, Button } from "reactstrap";
@@ -39,15 +42,7 @@ const RegisterContent = (props) => {
   };
 
   const handleButtonClick = () => {
-    axios({
-      url: "http://127.0.0.1:8000/delivery/order/",
-      // url: "https://sungmin.pythonanywhere.com/delivery/order/",
-      method: "post",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("login-token")}`,
-      },
+    getAllDeliveryList({
       data: {
         title: title,
         people_num: peoNum,

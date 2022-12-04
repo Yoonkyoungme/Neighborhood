@@ -15,12 +15,17 @@ import {
   Button,
 } from "react-bootstrap";
 
+// api
+import { signup } from "services/apis/userApis";
+
 function Signup() {
-  // 이메일, 비밀번호, 비밀번호 확인, 닉네임, 주소
+  // 닉네임, 이메일, 비밀번호, 비밀번호 확인
   const [inputName, setInputName] = useState("");
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
   const [confirmPw, setConfirmPw] = useState("");
+
+  // navigate
   const navigate = useNavigate();
 
   const handleInputName = (e) => {
@@ -46,26 +51,19 @@ function Signup() {
     if (inputPw !== confirmPw) {
       return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } else {
-      axios
-        .post(
-          "http://127.0.0.1:8000/accounts/dj-rest-auth/registration/",
-          // "https://sungmin.pythonanywhere.com/accounts/dj-rest-auth/registration/",
-          {
-            nickname: inputName,
-            email: inputId,
-            password1: inputPw,
-            password2: confirmPw,
-          }
-        )
+      signup({
+        data: {
+          nickname: inputName,
+          email: inputId,
+          password1: inputPw,
+          password2: confirmPw,
+        },
+      })
         .then(function (response) {
           if (parseInt(response.status / 200) == 1) {
             alert("회원가입 성공");
-            navigate("/delivery-board");
-          }
-        })
-        .then(function (response) {
-          if (response) {
-            localStorage.setItem("login-token", response.data.token);
+            localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
+            console.log(response.data);
             navigate("/delivery-board");
           }
         })
@@ -121,117 +119,6 @@ function Signup() {
         </Form>
       </Card.Body>
     </LoginWrap>
-    // <div className="signUp">
-    //   <h2>회원가입</h2>
-    //   <div>
-    //     <h4 class="tag">닉네임</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="text"
-    //       id="input_name"
-    //       name="input_name"
-    //       value={inputName}
-    //       placeholder="닉네임"
-    //       onChange={handleInputName}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">아이디(이메일)</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="email"
-    //       id="input_id"
-    //       name="input_id"
-    //       value={inputId}
-    //       placeholder="아이디(이메일 입력)"
-    //       onChange={handleInputId}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">비밀번호</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="password"
-    //       id="input_pw"
-    //       name="input_pw"
-    //       value={inputPw}
-    //       placeholder="비밀번호"
-    //       onChange={handleInputPw}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">비밀번호 확인</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="password"
-    //       id="confirm_pw"
-    //       name="confirm_pw"
-    //       value={confirmPw}
-    //       placeholder="비밀번호 확인"
-    //       onChange={handleConfirmPw}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">집 주소</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="text"
-    //       id="input_home"
-    //       name="input_home"
-    //       value={inputHome}
-    //       placeholder="집 주소"
-    //       onChange={handleInputHome}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">우편번호</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="number"
-    //       id="input_home_num"
-    //       name="input_home_num"
-    //       value={inputHomeNum}
-    //       placeholder="우편번호"
-    //       onChange={handleInputHomeNum}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">은행명</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="text"
-    //       id="input_bank"
-    //       name="input_bank"
-    //       value={inputBank}
-    //       placeholder="은행명"
-    //       maxLength="5"
-    //       onChange={handleInputBank}
-    //     />
-    //   </div>
-
-    //   <div>
-    //     <h4 class="tag">계좌번호</h4>
-    //     <StyledInput
-    //       className="input-box"
-    //       type="text"
-    //       id="input_bank_num"
-    //       name="input_bank_num"
-    //       value={inputBankNum}
-    //       placeholder="계좌번호"
-    //       onChange={handleInputBankNum}
-    //     />
-    //   </div>
-
-    //   <button className="button" type="submit" onClick={onSubmit}>
-    //     회원가입
-    //   </button>
-    // </div>
   );
 }
 

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // api
-import useApis from "services/apis/userApis";
+import { login } from "services/apis/userApis";
 
 // zustand
 import { user } from "store/index";
@@ -24,13 +24,12 @@ import {
 function Login() {
   const [inputId, setInputId] = useState("");
   const [inputPw, setInputPw] = useState("");
+
+  // navigate
   const navigate = useNavigate();
 
   // zustand
   const { thisUser, userLogin } = user();
-
-  // 세션에 id 저장 관리
-  const [savedId, setSavedId] = useState(false);
 
   const handleInputId = (e) => {
     setInputId(e.target.value);
@@ -40,38 +39,34 @@ function Login() {
     setInputPw(e.target.value);
   };
 
-  // 로그인 버튼 클릭 이벤트
-  const onClickLogin = (e) => {
+  // 로그인 버튼 클릭
+  const handleLogin = (e) => {
     e.preventDefault();
-    console.log("click login");
-    console.log(inputId, inputPw);
+    console.log("CLICK LOGIN", inputId, inputPw);
 
-    axios({
-      url: "http://127.0.0.1:8000/accounts/dj-rest-auth/login",
-      // url: "https://sungmin.pythonanywhere.com/accounts/dj-rest-auth/login",
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
+    login({
       data: {
         email: inputId,
         password: inputPw,
       },
     })
-      // 서버에서 보내준 결과값이 response
       .then(function (response) {
         if (parseInt(response.status / 200) == 1) {
           alert("로그인 성공");
-          localStorage.setItem("login-token", response.data.token);
+          localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
           userLogin(response.data);
           console.log(response.data);
-          console.log(response.data.token);
           navigate("/delivery-board");
         }
       })
       .catch(function (error) {
         alert("로그인 실패");
       });
+  };
+
+  // 회원가입 이동 버튼
+  const handleSiginup = () => {
+    navigate("/signup");
   };
 
   return (
@@ -95,11 +90,13 @@ function Login() {
               onChange={handleInputPw}
             />
           </Form.Group>
-          <CustomButton type="submit" onClick={onClickLogin}>
+          <CustomButton type="submit" onClick={handleLogin}>
             로그인
           </CustomButton>
         </Form>
-        <CustomSignupButton>회원가입</CustomSignupButton>
+        <CustomSignupButton onClick={handleSiginup}>
+          회원가입
+        </CustomSignupButton>
       </Card.Body>
     </LoginWrap>
   );
@@ -139,5 +136,7 @@ const CustomButton = styled(Button)`
 `;
 
 const CustomSignupButton = styled.div`
+  float: right;
   font-size: 12px;
+  cursor: pointer;
 `;
