@@ -1,10 +1,10 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
 
-export const user = create(
+export const userStore = create(
   persist((set) => ({
     thisUser: false,
-    userLogin: (userInfo) => set(() => ({ thisUser: userInfo })),
+    userLogin: () => set({ thisUser: true }),
     userLogout: () => set({ thisUser: false }),
   }))
 );

@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "services/apis/userApis";
 
 // zustand
-import { user } from "store/index";
+import { userStore } from "store/index";
 
 // css
 import styled from "styled-components";
@@ -29,7 +29,7 @@ function Login() {
   const navigate = useNavigate();
 
   // zustand
-  const { thisUser, userLogin } = user();
+  const { thisUser, userLogin } = userStore();
 
   const handleInputId = (e) => {
     setInputId(e.target.value);
@@ -54,8 +54,9 @@ function Login() {
         if (parseInt(response.status / 200) == 1) {
           alert("로그인 성공");
           localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
-          userLogin(response.data);
           console.log(response.data);
+
+          userLogin();
           navigate("/delivery-board");
         }
       })

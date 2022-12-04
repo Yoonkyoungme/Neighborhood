@@ -22,13 +22,13 @@ import DeliveryRegister from "pages/delivery/DeliveryRegister";
 import DeliveryDetail from "pages/delivery/DeliveryDetail";
 
 // 로그인 정보 처리
-import { user } from "store/index";
+import { userStore } from "store/index";
 
 function MainRoute() {
   // const { pathname } = useLocation();
 
   const ProtectedRoute = ({ redirectPath = "/login", children }) => {
-    const { thisUser } = user();
+    const { thisUser } = userStore();
 
     if (thisUser === false) {
       // navigate("/login", (state = { redirectPath }));
