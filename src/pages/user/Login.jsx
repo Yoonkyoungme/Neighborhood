@@ -44,18 +44,17 @@ function Login() {
     e.preventDefault();
     console.log("CLICK LOGIN", inputId, inputPw);
 
-    login({
-      data: {
-        email: inputId,
-        password: inputPw,
-      },
-    })
+    const requestData = {
+      email: inputId,
+      password: inputPw,
+    };
+
+    login(requestData)
       .then(function (response) {
         if (parseInt(response.status / 200) == 1) {
           alert("로그인 성공");
           localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
           console.log(response.data);
-
           userLogin();
           navigate("/delivery-board");
         }

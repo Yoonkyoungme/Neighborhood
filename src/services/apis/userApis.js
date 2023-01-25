@@ -13,10 +13,11 @@ export function signup() {
 }
 
 // 로그인
-export function login() {
+export function login(requestData) {
   return Interceptor({
-    url: "accounts/dj-rest-auth/login",
+    url: "/account/rest-auth/login",
     method: "post",
+    data: requestData,
   });
 }
 

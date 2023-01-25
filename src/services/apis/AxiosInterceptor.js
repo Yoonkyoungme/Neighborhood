@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const AxiosInterceptor = axios.create({
-  baseURL: "https://sungmin.pythonanywhere.com/",
+  baseURL: "http://220.120.192.122:8080",
   headers: {
     "Content-Type": "application/json",
     accept: "application/json,",
