@@ -7,23 +7,27 @@ import Interceptor from "services/apis/AxiosInterceptor";
 // 배달 글 전체 조회
 export function getAllDeliveryList() {
   return Interceptor({
-    url: "delivery/order/",
+    url: "/delivery/order/",
     method: "get",
   });
 }
 
 // 배달 글 등록
-export function registerDeliveryPost() {
+export function registerDeliveryPost(userToken, requestData) {
   return Interceptor({
-    url: "delivery/order/",
+    url: "/delivery/order/",
     method: "post",
+    headers: {
+      Authorization: `Bearer ${userToken}`,
+    },
+    data: requestData,
   });
 }
 
 // 배달 글 조회
 export function getDeliveryPost(id) {
   return Interceptor({
-    url: `delivery/order/${id}`,
+    url: `/delivery/order/${id}`,
     method: "get",
   });
 }
@@ -31,7 +35,7 @@ export function getDeliveryPost(id) {
 // 배달 글 수정
 export function editDeliveryPost(id) {
   return Interceptor({
-    url: `delivery/order/${id}`,
+    url: `/delivery/order/${id}`,
     method: "put",
   });
 }
@@ -39,7 +43,7 @@ export function editDeliveryPost(id) {
 // 배달 글 삭제
 export function deleteDeliveryPost(id) {
   return Interceptor({
-    url: `delivery/order/${id}`,
+    url: `/delivery/order/${id}`,
     method: "delete",
   });
 }

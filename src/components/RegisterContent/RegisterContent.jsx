@@ -6,7 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 import MenuFilter from "components/MenuFilter/MenuFilter";
 
 // api
-import { getAllDeliveryList } from "services/apis/deliveryApi";
+import { registerDeliveryPost } from "services/apis/deliveryApi";
 
 // css
 import * as RegisterForm from "assets/styles/RegisterForm";
@@ -42,17 +42,18 @@ const RegisterContent = (props) => {
   };
 
   const handleButtonClick = () => {
-    getAllDeliveryList({
-      data: {
-        title: title,
-        people_num: peoNum,
-        waiting_time: useTime,
-        place: place,
-        food_category: category,
-        content: content,
-        kakaourl: kakaoUrl,
-      },
-    })
+    const requestData = {
+      title: title,
+      people_num: peoNum,
+      waiting_time: useTime,
+      place: place,
+      food_category: category,
+      content: content,
+      kakaourl: kakaoUrl,
+    };
+    console.log(requestData);
+    console.log(localStorage.getItem("ACCESS_TOKEN"));
+    registerDeliveryPost(localStorage.getItem("ACCESS_TOKEN"), requestData)
       .then(function (response) {
         if (parseInt(response.status / 200) == 1) {
           alert("등록이 완료되었습니다.");

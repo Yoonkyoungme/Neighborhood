@@ -5,10 +5,11 @@ import Interceptor from "services/apis/AxiosInterceptor";
  */
 
 // 회원가입
-export function signup() {
+export function signup(requestData) {
   return Interceptor({
-    url: "accounts/dj-rest-auth/registration/",
+    url: "/accounts/dj-rest-auth/registration/",
     method: "post",
+    data: requestData,
   });
 }
 
@@ -24,7 +25,7 @@ export function login(requestData) {
 // 로그아웃
 export function logout() {
   return Interceptor({
-    url: "accounts/dj-rest-auth/logout ",
+    url: "/accounts/dj-rest-auth/logout",
     method: "post",
   });
 }

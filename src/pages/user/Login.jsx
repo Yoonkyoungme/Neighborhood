@@ -53,9 +53,9 @@ function Login() {
       .then(function (response) {
         if (parseInt(response.status / 200) == 1) {
           alert("로그인 성공");
-          localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
+          localStorage.setItem("ACCESS_TOKEN", response.data.token);
           console.log(response.data);
-          userLogin();
+          // userLogin();
           navigate("/delivery-board");
         }
       })

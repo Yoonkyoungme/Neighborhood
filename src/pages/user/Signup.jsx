@@ -51,14 +51,14 @@ function Signup() {
     if (inputPw !== confirmPw) {
       return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
     } else {
-      signup({
-        data: {
-          nickname: inputName,
-          email: inputId,
-          password1: inputPw,
-          password2: confirmPw,
-        },
-      })
+      const requestData = {
+        nickname: inputName,
+        email: inputId,
+        password1: inputPw,
+        password2: confirmPw,
+      };
+
+      signup(requestData)
         .then(function (response) {
           if (parseInt(response.status / 200) == 1) {
             alert("회원가입 성공");
