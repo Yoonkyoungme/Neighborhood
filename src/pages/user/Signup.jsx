@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 // css
 import styled from "styled-components";
 import {
@@ -18,59 +22,72 @@ import {
 // api
 import { signup } from "services/apis/userApis";
 
+// zustand
+import { userStore } from "store/index";
+
 function Signup() {
-  // 닉네임, 이메일, 비밀번호, 비밀번호 확인
-  const [inputName, setInputName] = useState("");
-  const [inputId, setInputId] = useState("");
-  const [inputPw, setInputPw] = useState("");
-  const [confirmPw, setConfirmPw] = useState("");
+  const formSchema = yup.object({
+    email: yup
+      .string()
+      .required("이메일을 입력해주세요")
+      .email("올바른 이메일 형식이 아닙니다."),
+
+    password: yup
+      .string()
+      .required("영문, 숫자를 포함한 6자리를 입력해주세요.")
+      .min(6, "최소 6자 이상 가능합니다")
+      .matches(
+        /^(?=.*[a-zA-Z])(?=.*[0-9]).{6,}$/,
+        "영문, 숫자를 포함한 6자리를 입력해주세요."
+      ),
+
+    passwordConfirm: yup
+      .string()
+      .oneOf([yup.ref("password")], "비밀번호가 다릅니다."),
+
+    nickname: yup.string(),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(formSchema),
+  });
 
   // navigate
   const navigate = useNavigate();
 
-  const handleInputName = (e) => {
-    setInputName(e.target.value);
-  };
-
-  const handleInputId = (e) => {
-    setInputId(e.target.value);
-  };
-
-  const handleInputPw = (e) => {
-    setInputPw(e.target.value);
-  };
-
-  const handleConfirmPw = (e) => {
-    setConfirmPw(e.target.value);
-  };
+  // zustand
+  const { userLogin } = userStore();
 
   // 회원가입 버튼 클릭 이벤트 (비밀번호와 비밀번호 확인 일치 여부)
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log(inputPw, confirmPw);
-    if (inputPw !== confirmPw) {
-      return alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-    } else {
-      const requestData = {
-        nickname: inputName,
-        email: inputId,
-        password1: inputPw,
-        password2: confirmPw,
-      };
+  const onSubmit = (data) => {
+    const { email, password, passwordConfirm, nickname } = data;
+    console.log(email, password, passwordConfirm, nickname);
+    const requestData = {
+      nickname: nickname,
+      email: email,
+      password1: password,
+      password2: passwordConfirm,
+    };
 
-      signup(requestData)
-        .then(function (response) {
-          if (parseInt(response.status / 200) == 1) {
-            alert("회원가입 성공");
-            localStorage.setItem("ACCESS_TOKEN", response.data.access_token);
-            console.log(response.data);
-            navigate("/delivery-board");
-          }
-        })
-        .catch(function (error) {
-          alert(error);
-        });
-    }
+    signup(requestData)
+      .then(function (response) {
+        if (parseInt(response.status / 200) == 1) {
+          alert("회원가입 성공");
+          localStorage.setItem("ACCESS_TOKEN", response.data.token);
+          console.log(response.data);
+          userLogin();
+          navigate("/delivery-board");
+        }
+      })
+      .catch(function (error) {
+        alert(error);
+      });
   };
 
   return (
@@ -83,37 +100,37 @@ function Signup() {
             <CustomInput
               type="email"
               placeholder="이메일을 입력해주세요."
-              onChange={handleInputId}
-              required
+              {...register("email")}
             />
+            {errors.email && <p>{errors.email.message}</p>}
           </Form.Group>
           <Form.Group className="mb-3">
             <CustomLable>비밀번호</CustomLable>
             <CustomInput
               type="password"
               placeholder="비밀번호를 입력해주세요."
-              onChange={handleInputPw}
-              required
+              {...register("password")}
             />
+            {errors.password && <p>{errors.password.message}</p>}
           </Form.Group>
           <Form.Group className="mb-3">
             <CustomLable>비밀번호 확인</CustomLable>
             <CustomInput
               type="password"
               placeholder="비밀번호를 다시 한 번 입력해주세요."
-              onChange={handleConfirmPw}
-              required
+              {...register("passwordConfirm")}
             />
+            {errors.passwordConfirm && <p>{errors.passwordConfirm.message}</p>}
             <Form.Group className="mb-3">
               <CustomLable>닉네임</CustomLable>
               <CustomInput
                 type="text"
                 placeholder="닉네임을 입력해주세요."
-                onChange={handleInputName}
+                {...register("nickname")}
               />
             </Form.Group>
           </Form.Group>
-          <CustomButton type="submit" onClick={onSubmit}>
+          <CustomButton type="submit" onClick={handleSubmit(onSubmit)}>
             회원가입
           </CustomButton>
         </Form>

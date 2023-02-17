@@ -7,7 +7,7 @@ import Interceptor from "services/apis/AxiosInterceptor";
 // 회원가입
 export function signup(requestData) {
   return Interceptor({
-    url: "/accounts/dj-rest-auth/registration/",
+    url: "/accounts/rest-auth/registration",
     method: "post",
     data: requestData,
   });
